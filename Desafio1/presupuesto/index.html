@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Presupuesto</title>
+    <link rel="stylesheet" type="text/css" href="presupuesto.css">
+    <script src="presupuesto.js"></script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+<div id="header">
+    <h1 class="titleblack"> Presupuesto de
+        <br>
+        <span id="currentDate"></span>
+        <br>
+        <span id="grandTotalAmount"></span></h1>
+
+    <div class="totals">
+        <div id="border1">
+            <label>Ingresos Totales: $</label>
+            <span id="totalIncome">0</span>
+        </div>
+        <br>
+        <div id="border2">
+            <label>Egresos Totales: $</label>
+            <span id="totalExpense">0</span>
+        </div>
+        <br>
+        <label id="expensePercentage">Porcentaje de Gastos:</label>
+        <span id="expensePercentageValue" style="background-color:#26489a;">0%</span>
+
+    </div>
+</div>
+
+<div class="column1">
+    <form id="budgetForm">
+        <h1 class="titlewhite">Transacci&oacute;n</h1>
+        <br>
+        <div style="width: 200px;">
+            <label for="transactionType"></label><select id="transactionType" class="dropmenu">
+                <option value="none">Ingreso | Egreso</option>
+                <option value="income">Ingresos</option>
+                <option value="expense">Egresos</option>
+            </select>
+        </div>
+        <br>
+        <div class="boxes">
+            <label for="description"></label><input type="text" id="description" placeholder="Descripci&oacute;n">
+            <br>
+            <label for="amount"></label><input type="number" id="amount" placeholder="Monto">
+        </div>
+        <div class="buttons">
+            <button id="button" type="button" onclick="addTransaction()">Agregar</button>
+        </div>
+    </form>
+</div>
+
+<div class="column2">
+    <form id="budgetList">
+        <div class="tabs">
+            <input type="radio" id="ingresos" name="tabs" checked="checked">
+            <label for="ingresos">Ingresos</label>
+            <div class="tablist">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Descripci&oacute;n</th>
+                        <th>Monto</th>
+                        <th></th>
+                        <th>Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody id="incomeTable"></tbody>
+                </table>
+            </div>
+            <input type="radio" id="egresos" name="tabs">
+            <label for="egresos">Egresos</label>
+            <div class="tablist">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Descripci&oacute;n</th>
+                        <th>Monto</th>
+                        <th>%</th>
+                        <th>Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody id="expenseTable"></tbody>
+                </table>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>
