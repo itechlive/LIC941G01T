@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pokemon ATM</title>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"> 
+</head>
+<body>
+    <div class="banner">
+        <h1>Bienvenido a Pokemon Bank</h1>
+    </div>
+    <div class="container">
+        <div class="listpayment">
+            <h2>Pago de Servicios</h2>
+            <br>
+            <label for="payment">Tipo de Servicios:</label>
+			<select id="payment" name="payment">
+                <option value="1">Agua</option>
+                <option value="2">Energia Electrica</option>
+                <option value="3">Telefono</option>
+                <option value="4">Internet</option>
+            </select>
+        
+        <label for="amount">
+            <i class="ingress"></i>
+        <input type="number" name="amount" placeholder="Cantidad a pagar" id="amount" required>
+        <input type="submit" value="Pagar">
+        </label>
+    </div>
+        
+        <div class="bottom">
+            <button onclick="window.location.href='../main.html'">Regresar al Menú</button>
+        </div>
+    </div>
+</body>
+</html>
