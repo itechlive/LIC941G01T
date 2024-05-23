@@ -1,0 +1,10 @@
+{
+    "name": "Ash Ketchum",
+    "accountNumber": "0987654321",
+    "username": "Ask Ketchum",
+    "balance": 500,
+    "transactions": [
+        {"date": "01/01/2021", "description": "Deposito", "amount": 500}
+        
+    ]
+}

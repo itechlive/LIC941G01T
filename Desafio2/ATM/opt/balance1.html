@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pokemon Bank ATM</title>
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Add Chart.js library -->
+</head>
+<body>
+<div class="banner">
+    <h1 id="welcome">Bienvenido a Pokemon Bank</h1>
+</div>
+<div class="container1">
+    <div class="userinfo">
+        <h1 id="username">Nombre de Usuario:  </h1>
+        <h1 id="balance">Saldo actual:</h1>
+    </div>
+    <div class="transactions">
+        <h1>Transacciones</h1>
+        <table id="transactionTable">
+            <tr>
+                <th>Fecha</th>
+                <th>Descripcion de la actividad</th>
+                <th>Monto</th>
+            </tr>
+        </table>
+    </div>
+    <div class = "graph">
+        <h1>Analisis de transacciones</h1>
+        <canvas id="transactionChart"></canvas> <!-- Replace the img tag with a canvas for the chart -->
+        <div class="bottom">
+            <button onclick="window.location.href='../main.html'">Regresar al Menu</button>
+        </div>
+    </div>
+</div>
+<script>
+    fetch('../info.json')
+        .then(response => response.json())
+        .then(info => {
+            document.getElementById('welcome').textContent += ' ' + info.name;
+            document.getElementById('username').textContent += ' ' + info.username;
+            document.getElementById('balance').textContent += ' $' + info.balance.toFixed(2);
+            let table = document.getElementById('transactionTable');
+            info.transactions.forEach(transaction => {
+                let row = table.insertRow(-1);
+                let dateCell = row.insertCell(0);
+                let descriptionCell = row.insertCell(1);
+                let amountCell = row.insertCell(2);
+                dateCell.textContent = transaction.date;
+                descriptionCell.textContent = transaction.description;
+                amountCell.textContent = '$' + transaction.amount.toFixed(2);
+            });
+
+            // Prepare data for the chart
+            let dates = info.transactions.map(transaction => transaction.date);
+            let amounts = info.transactions.map(transaction => transaction.amount);
+
+            // Create the chart
+            let ctx = document.getElementById('transactionChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: dates,
+                    datasets: [{
+                        label: 'Monto',
+                        data: amounts,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                }
+            });
+        })
+        .catch(error => console.error('Error:', error));
+</script>
+</body>
+</html>

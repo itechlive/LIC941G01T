@@ -2,34 +2,69 @@
 <html>
 <head>
     <title>Pokemon ATM</title>
-    <link rel="stylesheet" type="text/css" href="../css/style.css"> 
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 <body>
-    <div class="banner">
-        <h1>Bienvenido a Pokemon Bank</h1>
+<div class="banner">
+    <h1>Bienvenido a Pokemon Bank</h1>
+</div>
+<div class="container">
+    <div class="listpayment">
+        <h2>Pago de Servicios</h2>
+        <br>
+        <label for="payment">Tipo de Servicios:</label>
+        <select id="payment" name="payment">
+            <option value="1">Agua</option>
+            <option value="2">Energia Electrica</option>
+            <option value="3">Tel&eacute;fono</option>
+            <option value="4">Internet</option>
+        </select>
+
+        <form>
+            <label for="amount">
+                <i class="ingress"></i>
+                <input type="number" name="amount" placeholder="Cantidad a pagar" id="amount" required>
+                <input type="submit" value="Pagar">
+            </label>
+        </form>
     </div>
-    <div class="container">
-        <div class="listpayment">
-            <h2>Pago de Servicios</h2>
-            <br>
-            <label for="payment">Tipo de Servicios:</label>
-			<select id="payment" name="payment">
-                <option value="1">Agua</option>
-                <option value="2">Energia Electrica</option>
-                <option value="3">Telefono</option>
-                <option value="4">Internet</option>
-            </select>
-        
-        <label for="amount">
-            <i class="ingress"></i>
-        <input type="number" name="amount" placeholder="Cantidad a pagar" id="amount" required>
-        <input type="submit" value="Pagar">
-        </label>
+
+    <div class="bottom">
+        <button onclick="window.location.href='../main.html'">Regresar al Men&uacute;</button>
     </div>
-        
-        <div class="bottom">
-            <button onclick="window.location.href='../main.html'">Regresar al Menú</button>
-        </div>
-    </div>
+</div>
+<script>
+    window.onload = function() {
+        document.querySelector('.listpayment form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            var amount = document.getElementById('amount').value; // Get the payment amount
+            var paymentType = document.getElementById('payment').options[document.getElementById('payment').selectedIndex].text; // Get the type of service
+
+            // Crear el objeto de pago
+            var payment = {
+                date: new Date().toISOString(),
+                description: paymentType,
+                amount: amount
+            };
+
+            // Agregar el pago al LocalStorage
+            var payments = JSON.parse(localStorage.getItem('payments')) || [];
+
+            // Agregar el nuevo pago al arreglo
+            payments.push(payment);
+
+            // Guarda los datos de los pagos en el LocalStorage
+            localStorage.setItem('payments', JSON.stringify(payments));
+
+
+            swal("Haz realizado el pago", "", "success");
+
+            // Limpiar el formulario
+            event.target.reset();
+        });
+    }
+</script>
 </body>
 </html>

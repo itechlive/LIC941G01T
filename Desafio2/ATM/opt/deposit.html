@@ -1,28 +1,59 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Pokemon Bank ATM</title>
-        <link rel="stylesheet" type="text/css" href="../css/style.css">
-    </head>
-    <body>
-        <div class="banner">
-            <h1>Bienvenido a Pokemon Bank</h1>
-        </div>
-        <div class="container">
-         <div class="deposit">
-            <h1>Deposito</h1>
-            <form action="deposit.html" method="post">
-                <label for="amount">
-                    <i class="ingress"></i>
-                </label>
-                <input type="number" name="amount" placeholder="Cantidad a depositar" id="amount" required>
-                <input type="submit" value="Depositar">
-            </form>
-          </div>
-         <div class = "bottom">
-            <button onclick="window.location.href='../main.html'">Regresar al Menu</button>
-         </div>
-        </div>
-        
-        
-    </body>
+<head>
+    <title>Pokemon Bank ATM</title>
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+        window.onload = function() {
+            document.querySelector('.deposit form').addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent the form from submitting normally
+
+                var amount = document.getElementById('amount').value;
+
+                // Crear un objeto de deposito
+                var deposit = {
+                    date: new Date().toISOString(),
+                    description: 'Deposito',
+                    amount: amount
+                };
+
+                // Agregar el deposito al LocalStorage
+                var deposits = JSON.parse(localStorage.getItem('deposits')) || [];
+
+                // agregar el nuevo deposito al arreglo
+                deposits.push(deposit);
+
+                // Guardar los datos de los depositos en el LocalStorage
+                localStorage.setItem('deposits', JSON.stringify(deposits));
+
+                // Mostrar una alerta de confirmación
+                swal("El deposito se ha realizado", "", "success");
+
+                // Limpiar el formulario
+                event.target.reset();
+            });
+        }
+    </script>
+</head>
+<body>
+<div class="banner">
+    <h1>Bienvenido a Pokemon Bank</h1>
+</div>
+<div class="container">
+    <div class="deposit">
+        <h1>Deposito</h1>
+        <form action="deposit.html" method="post">
+            <label for="amount">
+                <i class="ingress"></i>
+            </label>
+            <input type="number" name="amount" placeholder="Cantidad a depositar" id="amount" required>
+            <input type="submit" value="Depositar">
+        </form>
+    </div>
+    <div class = "bottom">
+        <button onclick="window.location.href='../main.html'">Regresar al Men&uacute;</button>
+    </div>
+</div>
+</body>
+</html>
